@@ -1,0 +1,54 @@
+<div class="sign-in-page">
+
+<div id="clerk-sign-in"></div>
+
+</div>
+
+
+
+<script>
+
+window.addEventListener("load", async () => {
+
+await Clerk.load();
+
+
+Clerk.mountSignIn(
+  document.getElementById("clerk-sign-in"),
+  {
+    appearance: {
+
+      elements: {
+
+        card: {
+          borderRadius: "18px",
+          boxShadow:
+            "0 20px 50px rgba(0,0,0,0.15)"
+        },
+
+        headerTitle: {
+          fontSize: "28px",
+          fontWeight: "700"
+        },
+
+        formButtonPrimary: {
+          backgroundColor: "#4f46e5",
+          borderRadius: "10px",
+          fontSize: "16px"
+        },
+
+        formFieldInput: {
+          borderRadius: "10px",
+          height: "44px"
+        }
+
+      }
+
+    }
+  }
+);
+
+});
+
+
+</script>

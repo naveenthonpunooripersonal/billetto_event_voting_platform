@@ -1,0 +1,143 @@
+<div class="events-page">
+
+<header class="events-header">
+
+  <h1>
+    🎟️ Events
+  </h1>
+
+  <button id="logout-button" class="logout-btn">
+    Logout
+  </button>
+
+</header>
+
+
+<% if @events.empty? %>
+
+  <div class="empty-state">
+    <p>No events available</p>
+  </div>
+
+<% else %>
+
+  <div class="events-grid">
+
+    <% @events.each do |event| %>
+
+      <div class="event-card">
+
+
+        <% if event.image_url.present? %>
+
+          <img 
+            src="<%= event.image_url %>"
+            class="event-image"
+            alt="<%= event.title %>"
+          >
+
+        <% end %>
+
+
+
+        <div class="event-content">
+
+
+          <div class="category">
+            <%= event.category&.titleize %>
+          </div>
+
+
+          <h2>
+            <%= event.title %>
+          </h2>
+
+
+          <p class="description">
+            <%= truncate(event.description, length: 180) %>
+          </p>
+
+
+
+          <div class="event-details">
+
+            <p>
+              📍 <%= event.address %>
+            </p>
+
+
+            <p>
+              📅 
+              <%= event.start_date&.strftime("%d %b %Y %H:%M") %>
+            </p>
+
+          </div>
+
+
+
+          <div class="actions">
+
+            <%= button_to event_votes_path(event),
+                method: :post,
+                params: {
+                    vote_type: Vote::VOTE_TYPES["like"]
+                },
+                class: "vote-btn like-btn" do %>
+
+            👍 Upvote
+            (<%= event.likes_count || 0 %>)
+
+            <% end %>
+
+            <%= button_to event_votes_path(event),
+                method: :post,
+                params: {
+                    vote_type: Vote::VOTE_TYPES["dislike"]
+                },
+                class: "vote-btn dislike-btn" do %>
+
+            👎 Downvote
+            (<%= event.dislikes_count || 0 %>)
+
+            <% end %>
+            </div>
+
+        </div>
+
+      </div>
+
+
+    <% end %>
+
+  </div>
+
+
+<% end %>
+
+
+</div>
+
+
+
+<script>
+
+window.addEventListener("load", async () => {
+
+await Clerk.load();
+
+
+document
+  .getElementById("logout-button")
+  .addEventListener("click", async () => {
+
+    await Clerk.signOut();
+
+    window.location.href = "/sign-in";
+
+  });
+
+
+});
+
+
+</script>

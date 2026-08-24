@@ -1,0 +1,34 @@
+services:
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: billetto_event_voting_platofrm_development
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  web:
+    build: .
+    command: bash -c "rm -f tmp/pids/server.pid && bin/rails server -b 0.0.0.0"
+    volumes:
+      - .:/app
+      # - bundle_data:/usr/local/bundle
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      CLERK_SECRET_KEY: sk_test_TbcralJTqaOQ2Er82KnShsQwGlWRAsoQogs8owZW1n
+      CLERK_PUBLISHABLE_KEY: pk_test_dW5iaWFzZWQtd2VldmlsLTYzMDQuY2xlcmsuYWNjb3VudHMuZGV2JA
+      BILLETTO_ACCESS_ID: BLT2KPTYHW7C7HVSD4L9PP9JF
+      BILLETTO_SECRET: m7GZFG8rBWLIoDybs4yXZgAalKneoyPInSVTnYYXikTPtWLrao    
+      DATABASE_HOST: db
+      DATABASE_USER: postgres
+      DATABASE_PASSWORD: postgres
+      DATABASE_NAME: billetto_event_voting_platofrm_development
+
+volumes:
+  postgres_data:

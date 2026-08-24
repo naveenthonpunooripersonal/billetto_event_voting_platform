@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= content_for(:title) || "Billetto Event Voting Platform" %></title>
+
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= stylesheet_link_tag :app %>
+
+
+  <script
+  async
+  crossorigin="anonymous"
+  data-clerk-publishable-key="pk_test_dW5iaWFzZWQtd2VldmlsLTYzMDQuY2xlcmsuYWNjb3VudHMuZGV2JA"
+  src="https://unbiased-weevil-6304.clerk.accounts.dev/npm/@clerk/clerk-js@latest/dist/clerk.browser.js">
+</script>
+
+</head>
+
+<body>
+
+  <%= yield %>
+
+</body>
+</html>

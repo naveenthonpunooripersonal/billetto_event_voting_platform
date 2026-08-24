@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  billetto_event_id: MyString
+  title: MyString
+  description: MyText
+  category: MyString
+  image_url: MyString
+  event_url: MyString
+  address: MyText
+  start_date: 2026-08-23 14:18:47
+
+two:
+  billetto_event_id: MyString
+  title: MyString
+  description: MyText
+  category: MyString
+  image_url: MyString
+  event_url: MyString
+  address: MyText
+  start_date: 2026-08-23 14:18:47
