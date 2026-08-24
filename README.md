@@ -148,6 +148,16 @@ The Clerk user ID is stored as `votes.user_id` and included in voting events sto
 
 A local `users` table is not required for the current functionality.
 
+## Note
+
+Google authentication flow is working successfully.
+
+During testing of email/password sign-in, after entering valid credentials, Clerk redirects to: sign-in#/factor-two
+
+I investigated the Clerk dashboard configuration and verified that two-factor authentication appears to be disabled. However, the reason for this redirect could not be identified within the available timeline.
+
+Due to time constraints, I prioritized completing the core application functionality. Google authentication is working correctly and can be used for login.
+
 ---
 
 ## 4. Database constraint prevents duplicate voting
