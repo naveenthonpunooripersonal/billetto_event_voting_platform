@@ -24,7 +24,7 @@
   }
   
   
-  .logout-btn {
+  .logout-btn, .login-btn {
   
     background: #111827;
     color: white;
@@ -48,7 +48,12 @@
   
   }
   
+  .login-btn:hover {
   
+    background: #374151;
+  
+  }
+    
   
   .events-grid {
   
