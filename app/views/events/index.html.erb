@@ -5,11 +5,17 @@
   <h1>
     🎟️ Events
   </h1>
+    <% if clerk.session %>
+    <button id="logout-button" class="logout-btn">
+        Logout
+    </button>
 
-  <button id="logout-button" class="logout-btn">
-    Logout
-  </button>
-
+  <% else %>
+    <button id="login-button" class="login-btn">
+        Login
+    </button>
+  <% end %>
+  
 </header>
 
 
@@ -138,6 +144,12 @@ document
 
 
 });
+
+document
+  .getElementById("login-button")
+  .addEventListener("click", () => {
+    window.location.href = "/sign-in";
+  });
 
 
 </script>

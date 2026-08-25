@@ -1,4 +1,4 @@
-class EventsController < PrivatePagesController
+class EventsController < PublicPagesController
   def index
     @events =
       Event
