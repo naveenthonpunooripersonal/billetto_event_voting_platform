@@ -83,7 +83,7 @@ RSpec.describe VotesController, type: :controller do
               )
             )
         end
-      
+
         it "redirects the user to the sign in page" do
           expect {
             post :create,
@@ -92,7 +92,7 @@ RSpec.describe VotesController, type: :controller do
                    vote_type: "like"
                  }
           }.not_to change(Vote, :count)
-      
+
           expect(response)
             .to redirect_to("/sign-in")
         end

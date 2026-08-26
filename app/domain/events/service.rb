@@ -39,6 +39,6 @@ module Events
         event,
         stream_name: "EVENTS_IMPORT"
       )
-    end   
+    end
   end
 end

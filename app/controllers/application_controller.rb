@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   include Clerk::Authenticatable
-  
+
   helper_method :current_user_id, :authenticated?
 
   private

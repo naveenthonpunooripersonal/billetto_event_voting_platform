@@ -25,7 +25,6 @@ end
 
 
 RSpec.configure do |config|
-
   config.fixture_paths = [
     Rails.root.join("spec/fixtures")
   ]
@@ -44,9 +43,8 @@ RSpec.configure do |config|
 
 
   config.filter_rails_from_backtrace!
-  
-  config.include AuthenticationHelpers, type: :system
 
+  config.include AuthenticationHelpers, type: :system
 end
 
 Capybara.register_driver :selenium_chrome_headless do |app|

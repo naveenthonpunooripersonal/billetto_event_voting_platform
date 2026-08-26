@@ -17,7 +17,7 @@ class CreateEventStoreEvents < ActiveRecord::Migration[8.1]
 
     add_index(
       :event_store_events_in_streams,
-      [:stream, :position],
+      [ :stream, :position ],
       unique: true
     )
   end

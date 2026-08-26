@@ -57,12 +57,12 @@ RSpec.describe "Voting", type: :system do
     it "increases the upvote count when the user upvotes" do
         within("#event-#{event.id}") do
           expect(page).to have_button("👍 Upvote (0)")
-  
+
           find("#upvote-event-#{event.id}").click
         end
-  
+
         expect(page).to have_current_path(events_path)
-  
+
         within("#event-#{event.id}") do
           expect(page).to have_button("👍 Upvote (1)")
         end
@@ -71,12 +71,12 @@ RSpec.describe "Voting", type: :system do
     it "increases the downvote count when the user downvotes" do
         within("#event-#{event.id}") do
           expect(page).to have_button("👎 Downvote (0)")
-  
+
           find("#downvote-event-#{event.id}").click
         end
-  
+
         expect(page).to have_current_path(events_path)
-  
+
         within("#event-#{event.id}") do
           expect(page).to have_button("👎 Downvote (1)")
         end
@@ -86,17 +86,17 @@ RSpec.describe "Voting", type: :system do
         within("#event-#{event.id}") do
           find("#upvote-event-#{event.id}").click
         end
-      
+
         within("#event-#{event.id}") do
           expect(page).to have_button("👍 Upvote (1)")
           expect(page).to have_button("👎 Downvote (0)")
         end
-      
+
         # Page redirects to events after the first vote, so find the event again.
         within("#event-#{event.id}") do
           find("#downvote-event-#{event.id}").click
         end
-      
+
         within("#event-#{event.id}") do
           expect(page).to have_button("👍 Upvote (0)")
           expect(page).to have_button("👎 Downvote (1)")
@@ -107,16 +107,16 @@ RSpec.describe "Voting", type: :system do
         within("#event-#{event.id}") do
           find("#downvote-event-#{event.id}").click
         end
-      
+
         within("#event-#{event.id}") do
           expect(page).to have_button("👎 Downvote (1)")
           expect(page).to have_button("👍 Upvote (0)")
         end
-      
+
         within("#event-#{event.id}") do
           find("#upvote-event-#{event.id}").click
         end
-      
+
         within("#event-#{event.id}") do
           expect(page).to have_button("👍 Upvote (1)")
           expect(page).to have_button("👎 Downvote (0)")
@@ -127,13 +127,13 @@ RSpec.describe "Voting", type: :system do
         within("#event-#{event.id}") do
           find("#upvote-event-#{event.id}").click
         end
-      
+
         within("#event-#{event.id}") do
           find("#upvote-event-#{event.id}").click
         end
-      
+
         expect(event.reload.votes.where(user_id: "clerk_test_user_123").count).to eq(1)
-      
+
         within("#event-#{event.id}") do
           expect(page).to have_button("👍 Upvote (1)")
         end

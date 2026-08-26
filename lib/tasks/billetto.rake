@@ -1,6 +1,6 @@
 namespace :billetto do
   desc "Import events from Billetto"
-  task :import_events, [:limit] => :environment do |_task, args|
+  task :import_events, [ :limit ] => :environment do |_task, args|
     limit = args[:limit] || 10
     command = Events::Import.new(limit: limit.to_i)
 
