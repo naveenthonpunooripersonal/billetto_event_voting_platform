@@ -16,10 +16,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_24_200047) do
 
   create_table "event_store_events", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "created_at", null: false
-    t.text "data", null: false
+    t.jsonb "data", null: false
     t.string "event_id", null: false
     t.string "event_type", null: false
-    t.text "metadata"
+    t.jsonb "metadata"
     t.datetime "valid_at"
     t.index ["created_at"], name: "index_event_store_events_on_created_at"
     t.index ["event_id"], name: "index_event_store_events_on_event_id", unique: true
