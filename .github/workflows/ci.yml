@@ -84,7 +84,7 @@ jobs:
         with:
           bundler-cache: true
 
-      - name: Run tests
+      - name: Run RSpec
         env:
           RAILS_ENV: test
           DATABASE_URL: postgres://postgres:postgres@localhost:5432/billetto_event_voting_platofrm_test
@@ -94,7 +94,7 @@ jobs:
           BILLETTO_SECRET: test_billetto_secret
         run: |
           bin/rails db:test:prepare
-          bin/rails test
+          bundle exec rspec
 
   system-test:
     runs-on: ubuntu-latest
@@ -128,7 +128,7 @@ jobs:
         with:
           bundler-cache: true
 
-      - name: Run System Tests
+      - name: Run RSpec System Specs
         env:
           RAILS_ENV: test
           DATABASE_URL: postgres://postgres:postgres@localhost:5432/billetto_event_voting_platofrm_test
@@ -138,7 +138,7 @@ jobs:
           BILLETTO_SECRET: test_billetto_secret
         run: |
           bin/rails db:test:prepare
-          bin/rails test:system
+          bundle exec rspec spec/system
 
       - name: Keep screenshots from failed system tests
         uses: actions/upload-artifact@v4
