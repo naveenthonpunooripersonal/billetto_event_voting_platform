@@ -132,8 +132,8 @@ jobs:
         env:
           RAILS_ENV: test
           DATABASE_URL: postgres://postgres:postgres@localhost:5432/billetto_event_voting_platofrm_test
-          CLERK_SECRET_KEY: test_clerk_secret_key
-          CLERK_PUBLISHABLE_KEY: test_clerk_publishable_key
+          CLERK_SECRET_KEY: sk_test_dummy_ci_secret_key
+          CLERK_PUBLISHABLE_KEY: pk_test_dummy_ci_publishable_key
           BILLETTO_ACCESS_ID: test_billetto_access_id
           BILLETTO_SECRET: test_billetto_secret
         run: |
