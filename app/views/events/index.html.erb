@@ -1,23 +1,20 @@
 <div class="events-page">
 
 <header class="events-header">
-
   <h1>
     🎟️ Events
   </h1>
-    <% if clerk.session %>
-    <button id="logout-button" class="logout-btn">
-        Logout
-    </button>
 
+  <% if authenticated? %>
+    <button id="logout-button" class="logout-btn">
+      Logout
+    </button>
   <% else %>
     <button id="login-button" class="login-btn">
-        Login
+      Login
     </button>
   <% end %>
-  
 </header>
-
 
 <% if @events.empty? %>
 
@@ -31,39 +28,29 @@
 
     <% @events.each do |event| %>
 
-      <div class="event-card">
-
+      <div id="event-<%= event.id %>" class="event-card">
 
         <% if event.image_url.present? %>
-
-          <img 
+          <img
             src="<%= event.image_url %>"
             class="event-image"
             alt="<%= event.title %>"
           >
-
         <% end %>
 
-
-
         <div class="event-content">
-
 
           <div class="category">
             <%= event.category&.titleize %>
           </div>
 
-
           <h2>
             <%= event.title %>
           </h2>
 
-
           <p class="description">
             <%= truncate(event.description, length: 180) %>
           </p>
-
-
 
           <div class="event-details">
 
@@ -71,85 +58,66 @@
               📍 <%= event.address %>
             </p>
 
-
             <p>
-              📅 
-              <%= event.start_date&.strftime("%d %b %Y %H:%M") %>
+              📅 <%= event.start_date&.strftime("%d %b %Y %H:%M") %>
             </p>
 
           </div>
-
-
 
           <div class="actions">
 
             <%= button_to event_votes_path(event),
                 method: :post,
                 params: {
-                    vote_type: Vote::VOTE_TYPES["like"]
+                  vote_type: Vote::VOTE_TYPES["like"]
                 },
+                id: "upvote-event-#{event.id}",
                 class: "vote-btn like-btn" do %>
-
-            👍 Upvote
-            (<%= event.likes_count || 0 %>)
-
+              👍 Upvote (<%= event.likes_count || 0 %>)
             <% end %>
 
             <%= button_to event_votes_path(event),
                 method: :post,
                 params: {
-                    vote_type: Vote::VOTE_TYPES["dislike"]
+                  vote_type: Vote::VOTE_TYPES["dislike"]
                 },
+                id: "downvote-event-#{event.id}",
                 class: "vote-btn dislike-btn" do %>
-
-            👎 Downvote
-            (<%= event.dislikes_count || 0 %>)
-
+              👎 Downvote (<%= event.dislikes_count || 0 %>)
             <% end %>
-            </div>
+
+          </div>
 
         </div>
 
       </div>
 
-
     <% end %>
 
   </div>
 
-
 <% end %>
-
 
 </div>
 
-
-
 <script>
-
 window.addEventListener("load", async () => {
+  await Clerk.load();
 
-await Clerk.load();
+  const logoutButton = document.getElementById("logout-button");
+  const loginButton = document.getElementById("login-button");
 
+  if (logoutButton) {
+    logoutButton.addEventListener("click", async () => {
+      await Clerk.signOut();
+      window.location.href = "/sign-in";
+    });
+  }
 
-document
-  .getElementById("logout-button")
-  .addEventListener("click", async () => {
-
-    await Clerk.signOut();
-
-    window.location.href = "/sign-in";
-
-  });
-
-
+  if (loginButton) {
+    loginButton.addEventListener("click", () => {
+      window.location.href = "/sign-in";
+    });
+  }
 });
-
-document
-  .getElementById("login-button")
-  .addEventListener("click", () => {
-    window.location.href = "/sign-in";
-  });
-
-
 </script>

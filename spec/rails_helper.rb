@@ -11,6 +11,11 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require "rspec/rails"
 require "shoulda/matchers"
 require "webmock/rspec"
+require_relative "support/authentication_helpers"
+require "factory_bot_rails"
+
+
+WebMock.disable_net_connect!(allow_localhost: true)
 
 begin
   ActiveRecord::Migration.maintain_test_schema!
@@ -39,5 +44,24 @@ RSpec.configure do |config|
 
 
   config.filter_rails_from_backtrace!
+  
+  config.include AuthenticationHelpers, type: :system
 
 end
+
+Capybara.register_driver :selenium_chrome_headless do |app|
+  options = Selenium::WebDriver::Chrome::Options.new
+  options.add_argument("--headless=new")
+  options.add_argument("--no-sandbox")
+  options.add_argument("--disable-dev-shm-usage")
+  options.add_argument("--disable-gpu")
+  options.binary = "/usr/bin/chromium"
+
+  Capybara::Selenium::Driver.new(
+    app,
+    browser: :chrome,
+    options: options
+  )
+end
+
+Capybara.javascript_driver = :selenium_chrome_headless

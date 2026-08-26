@@ -79,7 +79,7 @@ RSpec.describe VotesController, type: :controller do
             .to receive(:clerk)
             .and_return(
               double(
-                session: nil
+                user: nil
               )
             )
         end

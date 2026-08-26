@@ -4,6 +4,8 @@ WORKDIR /app
 
 RUN apt-get update -qq && \
     apt-get install -y \
+      chromium \
+      chromium-driver \
       build-essential \
       libpq-dev \
       curl \
