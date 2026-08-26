@@ -38,10 +38,10 @@ The application was implemented within a **3-day development period**.
 
 * Added `event_vote_counts` projection/read model.
 * Added RSpec tests and API mocking.
+* Added System spec for testing voting flow using capybara based on the feedback
 * Completed Docker setup.
 * Added setup and implementation documentation.
 * Tested the complete application flow.
-
 ---
 
 # Architecture
@@ -148,15 +148,14 @@ The Clerk user ID is stored as `votes.user_id` and included in voting events sto
 
 A local `users` table is not required for the current functionality.
 
-## Note
+## Note: 2 Factor Authentication Issue fixing details
+During the first iteration of the task, I wasn't able to identify the Device Trust setting because my initial focus was primarily on checking whether Multi-Factor Authentication (MFA) was enabled or disabled in Clerk.
 
-Google authentication flow is working successfully.
+But in second I identified why two-factor authentication was being requested and fixed the issue.
 
-During testing of email/password sign-in, after entering valid credentials, Clerk redirects to: sign-in#/factor-two
+The cause was a configuration in the User Settings that enabled the Device Trust feature. This feature requires users to provide a second authentication factor when signing in from a new device, helping protect against credential-stuffing attacks.
 
-I investigated the Clerk dashboard configuration and verified that two-factor authentication appears to be disabled. However, the reason for this redirect could not be identified within the available timeline.
-
-Due to time constraints, I prioritized completing the core application functionality. Google authentication is working correctly and can be used for login.
+I enabled the option to allow this user to bypass the Device Trust requirement. After enabling the bypass, the additional two-factor authentication prompt was no longer required during sign-in.
 
 ---
 
@@ -303,8 +302,11 @@ event_vote_counts
 | Clerk                   | Authentication            |
 | Docker / Docker Compose | Development environment   |
 | RSpec                   | Automated testing         |
+| Capybara                | Automated System testing(2nd iteration based on the feedback)  |
 | Factory Bot             | Test data                 |
 | WebMock                 | External API mocking      |
+
+
 
 ---
 
@@ -338,9 +340,7 @@ cd billetto_event_voting_platofrm
 
 ## 3. Configure Credentials
 
-The assignment credentials are currently provided through Docker Compose configuration.
-
-For production, credentials should instead be stored using environment variables, Rails encrypted credentials, or a secret-management service.
+The assignment credentials were initially provided through the Docker Compose configuration, as I assumed during the first iteration that the repository would be cloned and run locally to verify the complete end-to-end flow. Based on the feedback, I have now moved the credentials to a .env file.
 
 Required credentials:
 
@@ -349,8 +349,6 @@ Billetto API credentials
 Clerk Publishable Key
 Clerk Secret Key
 ```
-
-Do not commit real production secrets to the repository.
 
 ---
 
@@ -397,6 +395,13 @@ docker compose exec web rails db:migrate:status
 ```
 
 ---
+
+## 8. Regarding the Gemfile
+
+The application was initially created using the default Rails setup, which included some gems that may not be used by the application. These unused dependencies can be cleaned up, but I did not spend additional time removing them as part of this iteration.
+
+For example, solid_cache, solid_queue, and solid_cable are not currently required by the application's functionality. However, removing these gems cleanly would also require reviewing and removing the corresponding Rails configuration and initialization files generated for these components. I did not spend additional time on this dependency and configuration cleanup as part of this iteration, as the focus was on implementing the required functionality and ensuring the application and CI pipeline were working correctly.
+
 
 ## 8. Open the Application
 
