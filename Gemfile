@@ -12,7 +12,7 @@ gem "puma", ">= 5.0"
 gem "jbuilder"
 gem "clerk-sdk-ruby", "~> 8.0", require: "clerk"
 
-gem "rails_event_store", "~> 3.0"
+gem "rails_event_store", "~> 3.1"
 gem "dotenv-rails", "~> 3.1"
 
 
