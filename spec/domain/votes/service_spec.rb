@@ -61,7 +61,8 @@ RSpec.describe Votes::Service do
           an_instance_of(
             Votes::Casted
           ),
-          stream_name: "VOTE_CASTED"
+          stream_name: "VOTE_CASTED_#{event.id}",
+          expected_version: :auto
         )
 
       subject.call(command)

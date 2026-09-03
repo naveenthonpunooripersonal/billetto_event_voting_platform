@@ -37,7 +37,8 @@ module Events
 
       event_store.publish(
         event,
-        stream_name: "EVENTS_IMPORT"
+        stream_name: "EVENTS_IMPORT",
+        expected_version: :auto
       )
     end
   end

@@ -48,7 +48,8 @@ module Votes
               vote_type: vote.vote_type
             }
           ),
-          stream_name: "VOTE_CASTED"
+          stream_name: "VOTE_CASTED_#{vote.event_id}",
+          expected_version: :auto
         )
       end
     end

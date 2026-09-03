@@ -69,7 +69,8 @@ RSpec.describe Events::Service do
           an_instance_of(
             Events::Imported
           ),
-          stream_name: "EVENTS_IMPORT"
+          stream_name: "EVENTS_IMPORT",
+          expected_version: :auto
         )
 
       subject.call(command)
