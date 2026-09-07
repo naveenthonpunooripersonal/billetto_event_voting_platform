@@ -70,7 +70,7 @@ group :test do
 
   gem "shoulda-matchers"
 
-  gem "webmock", "~> 3.25"
+  gem "webmock", "~> 3.26"
 
   # Generate fake test data
   gem "faker", "~> 3.5"
